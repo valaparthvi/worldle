@@ -1,0 +1,3 @@
+FROM node:lts-slim
+WORKDIR /home/node
+RUN npm install react-scripts
