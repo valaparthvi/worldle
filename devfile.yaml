@@ -8,65 +8,44 @@ commands:
     workingDir: ${PROJECT_SOURCE}
   id: install
 - exec:
-    commandLine: npm start
+    commandLine: npm run dev
     component: runtime
     group:
       isDefault: true
       kind: run
     workingDir: ${PROJECT_SOURCE}
   id: run
-- exec:
-    commandLine: npm run debug
-    component: runtime
-    group:
-      isDefault: true
-      kind: debug
-    workingDir: ${PROJECT_SOURCE}
-  id: debug
-- exec:
-    commandLine: npm test
-    component: runtime
-    group:
-      isDefault: true
-      kind: test
-    workingDir: ${PROJECT_SOURCE}
-  id: test
-- apply:
-    component: prod-image
-  id: build-image
 components:
 - container:
+    args:
+    - tail
+    - -f
+    - /dev/null
     endpoints:
-    - name: http-3000
+    - name: http-react
       targetPort: 3000
-    - name: port-5858-tcp
-      protocol: tcp
-      targetPort: 5858
     image: quay.io/pvala18/nodejs-react-scripts:latest
     memoryLimit: 1024Mi
-    mountSources: true
   name: runtime
-- image:
-    imageName: quay.io/pvala18/my-worldle-app:latest
-    dockerfile:
-      buildContext: ${PROJECT_SOURCE}
-      url: ./Dockerfile
-  name: prod-image
 metadata:
-  description: Stack with Node.js 14
-  displayName: Node.js Runtime
-  icon: https://nodejs.org/static/images/logos/nodejs-new-pantone-black.svg
-  language: javascript
+  description: React is a free and open-source front-end JavaScript library for building
+    user interfaces based on UI components. It is maintained by Meta and a community
+    of individual developers and companies.
+  displayName: React
+  icon: https://raw.githubusercontent.com/devfile-samples/devfile-stack-icons/main/react.svg
+  language: TypeScript
   name: worldle
-  projectType: nodejs
+  projectType: React
+  provider: Red Hat
   tags:
-  - NodeJS
-  - Express
-  - ubi8
-  version: 1.0.1
-schemaVersion: 2.0.0
+  - Node.js
+  - React
+  version: 2.0.2
+schemaVersion: 2.1.0
 starterProjects:
 - git:
+    checkoutFrom:
+      revision: main
     remotes:
-      origin: https://github.com/odo-devfiles/nodejs-ex.git
-  name: nodejs-starter
+      origin: https://github.com/devfile-samples/devfile-stacks-nodejs-react.git
+  name: nodejs-react-starter
