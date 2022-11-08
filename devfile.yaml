@@ -16,14 +16,6 @@ commands:
     workingDir: ${PROJECT_SOURCE}
   id: run
 - exec:
-    commandLine: npm run debug
-    component: runtime
-    group:
-      isDefault: true
-      kind: debug
-    workingDir: ${PROJECT_SOURCE}
-  id: debug
-- exec:
     commandLine: npm test
     component: runtime
     group:
@@ -40,9 +32,6 @@ components:
     endpoints:
     - name: http-node
       targetPort: 3000
-    - exposure: none
-      name: debug
-      targetPort: 5858
     image: quay.io/pvala18/nodejs-react-scripts:latest
     memoryLimit: 1024Mi
     mountSources: true
